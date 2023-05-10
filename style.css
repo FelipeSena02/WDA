@@ -1,0 +1,65 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header{
+    width: 100%;
+    background-color: #4287f5;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    box-shadow: 0px 0px 1em #666;
+    margin: 0px;
+}
+
+.container-logo{
+    justify-content: space-around;
+    display: flex;
+    align-items: center;
+}
+.logo-imagem{
+    padding-bottom: 0px;
+    position: absolute;
+}
+.menu li{
+    display: inline-block;
+    margin: 0 10px;
+}
+.menu li a{
+    font-size: 24px;
+    text-decoration: none;
+    color: white;
+    text-transform: uppercase;
+    padding: 10px;
+    border-radius: 10px;
+}
+.menu li a:hover{
+    background-color: gray;
+}
+.saida{
+    background: #FFDEAD;
+    color: #4F4F4F;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+.saida:hover{
+    border: #555;
+}
+.fundo{
+    font-family: Arial, Helvetica, sans-serif;
+    background-image: url("livraria.jpg");
+}
+.table-bd{
+    background-color: rgba(0,0,0,1);
+    border-radius: 15px 15px 0 0;
+}
+.box-search{
+    display: flex;
+    justify-content: center;
+    gap: 1%;
+}
