@@ -15,7 +15,6 @@ if(!empty($_GET['search']))
 
 $result = $conexao->query($sql);
 
-//print_r($result);
 ?>
 <!DOCTYPE html>
 <html>
