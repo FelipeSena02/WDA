@@ -99,9 +99,6 @@ if(isset($_POST['submit']))
         #submit:hover{
             background-image: linear-gradient(to right,rgb(0, 80, 172), rgb(80, 19, 195));
         }
-        select{
-            height: 30px;
-        }
     </style>
     </head>
     <body class="fundo">
@@ -110,29 +107,15 @@ if(isset($_POST['submit']))
             <fieldset>
                 <legend><b>Cadastrar Aluguel</b></legend>
                 <br>
-                <select name="select_livro">
-					<option>Livro</option>
-					<?php
-                    include_once('config.php');
-					$result = "SELECT * FROM livro";
-					$resultado = mysqli_query($conexao, $result);
-					while($row = mysqli_fetch_assoc($resultado)){ ?>
-					<option value="<?php echo $row['id']; ?>"><?php echo $row['nome']; ?></option><?php
-					}
-					?>
-				</select>      
+                <div class="inputBox">
+                    <input type="text" name="livro" id="livro" class="inputUser" required>
+                    <label for="livro" class="labelInput">Livro</label>
+                </div>      
                 <br><br>
-                <select name="select_usuario">
-					<option>Usuário</option>
-					<?php
-                    include_once('config.php');
-					$result = "SELECT * FROM usuarios";
-					$resultado = mysqli_query($conexao, $result);
-					while($row = mysqli_fetch_assoc($resultado)){ ?>
-					<option value="<?php echo $row['id']; ?>"><?php echo $row['nome']; ?></option><?php
-					}
-					?>
-				</select>      
+                <div class="inputBox">
+                    <input type="text" name="usuario" id="usuario" class="inputUser" required>
+                    <label for="usuario" class="labelInput">Usuario</label>
+                </div>      
                 <br><br>
                 <div class="inputBox">
                     <label for="data_aluguel"><b>Data de Aluguel:</b></label>
