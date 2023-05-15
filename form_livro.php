@@ -93,6 +93,9 @@ if(isset($_POST['submit']))
         #submit:hover{
             background-image: linear-gradient(to right,rgb(0, 80, 172), rgb(80, 19, 195));
         }
+        select{
+            height: 30px;
+        }
     </style>
     </head>
     <body class="fundo">
@@ -111,10 +114,17 @@ if(isset($_POST['submit']))
                     <label for="autor" class="labelInput">Autor do Livro</label>
                 </div>      
                 <br><br>
-                <div class="inputBox">
-                    <input type="text" name="editora" id="editora" class="inputUser" required>
-                    <label for="editora" class="labelInput">Editora do Livro</label>
-                </div>
+                <select name="select_editora">
+					<option>Nome da Editora</option>
+					<?php
+                    include_once('config.php');
+					$result = "SELECT * FROM editora";
+					$resultado = mysqli_query($conexao, $result);
+					while($row = mysqli_fetch_assoc($resultado)){ ?>
+					<option value="<?php echo $row['id']; ?>"><?php echo $row['nome']; ?></option><?php
+					}
+					?>
+				</select>
                 <br><br>
                 <div class="inputBox">
                     <label for="data_lanc"><b>Data de Lançamento:</b></label>

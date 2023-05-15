@@ -44,7 +44,8 @@ $result = $conexao->query($sql);
             </div>
             <button class="saida"><a href="sair.php"><h5>SAIR</h5></a></button>
         </header>
-        <button><a href="form_editora.php"><h3>+Cadastrar</h3></a></button>
+        <br>
+        <button><a href="form_editora.php"><h3> Cadastrar Editora</h3></a></button>
         <div class ="box-search">
             <input type="search" class="form-control w-25" placeholder="Pesquisar" id="pesquisar">
             <button onclick="searchData()" class="btn btn-primary">
