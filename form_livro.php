@@ -111,10 +111,27 @@ if(isset($_POST['submit']))
                     <label for="autor" class="labelInput">Autor do Livro</label>
                 </div>      
                 <br><br>
-                <div class="inputBox">
-                    <input type="text" name="editora" id="editora" class="inputUser" required>
-                    <label for="editora" class="labelInput">Editora do Livro</label>
-                </div>
+                <div class="input-box">
+                        <div class="select">
+                            <label for="Editora">Editora</label>
+                            <select class="select" name="editora">
+                                <option>Selecione</option>
+                                <?php
+                                include_once('config.php');
+                                $sql = "SELECT * FROM editora ORDER BY id";
+                                $res = mysqli_query($conexao, $sql);
+                                while ($cadastro = mysqli_fetch_row($res)) {
+                                    
+                                    $ed = $cadastro[1];
+                                    
+                                    $editora = $cadastro[1];
+
+                                    echo "<option class='editora' value='$ed'>$editora</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>
                 <br><br>
                 <div class="inputBox">
                     <label for="data_lanc"><b>Data de Lançamento:</b></label>

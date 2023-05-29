@@ -6,7 +6,8 @@ $sql = "SELECT * FROM editora ORDER BY id DESC";
 if(!empty($_GET['search']))
     {
         $data = $_GET['search'];
-        $sql = "SELECT * FROM editora WHERE id LIKE '%$data%' or nome LIKE '%$data%' ORDER BY id DESC";
+        $sql = "SELECT * FROM editora WHERE id LIKE '%$data%' or nome LIKE '%$data%' 
+        or email LIKE '%$data%' or telefone LIKE '%$data%' or cidade LIKE '%$data%' ORDER BY id DESC";
     }
     else
     {

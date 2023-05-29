@@ -24,6 +24,42 @@
             text-align: center;
         }
     </style>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['NOME','Estoque'],
+
+          <?php
+          include_once('config.php');
+          $sql = "SELECT * FROM livro";
+          $consulta = mysqli_query($conexao, $sql);
+
+          while($dados = mysqli_fetch_array($consulta)) {
+
+            $nome = $dados['nome']; 
+            $estoque = $dados['estoque']; ?>
+        
+          ['<?php echo $nome ?>', <?php echo $estoque ?>],
+
+        <?php } ?>
+        ]);
+
+        var options = {
+          chart: {
+            title: 'Estoque',
+            subtitle: 'Total de livros',
+          }
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+        chart.draw(data, google.charts.Bar.convertOptions(options));
+      }
+    </script>
     </head>
     <body class="fundo">
         <header>
@@ -45,7 +81,7 @@
         </header>
         <br>
         <div style="display: flex; margin:1px">
-        <div style="background-color:white; width:250px; height:80px; margin:5px">
+        <div style="background-color:white; width:250px; height:100px; margin:5px">
         <br>
         <?php
         include_once('config.php');
@@ -64,7 +100,7 @@
         echo "Total de livros: ". $linha_estoque['total_livros'];
         ?>
         </div>
-        <div style="background-color:white; width:250px; height:80px; margin:5px">
+        <div style="background-color:white; width:250px; height:100px; margin:5px">
         <br>
         <?php
 include_once('config.php');
@@ -83,7 +119,7 @@ if (isset($alugueis['numero_alugueis'])) {
 echo "Quantidade de aluguéis: ". $alugueis['alugueis'];
 ?>
         </div>
-        <div style="background-color:white; width:250px; height:80px; margin:5px">
+        <div style="background-color:white; width:250px; height:100px; margin:5px">
         <br>
         <?php
         include_once('config.php');
@@ -93,11 +129,16 @@ echo "Quantidade de aluguéis: ". $alugueis['alugueis'];
 
         $row = $sql->fetch_assoc();
 
+        if($row==0) {
+            echo "Nenhum livro alugado";
+        }else{
         $livro = $row['livro'];
-
         echo "Último livro alugado: ".$livro;
+        }
         ?>
         </div>
         </div>
+        <br>
+        <div id="columnchart_material" style="width: 950px; height: 350px; margin:10px"></div>
     </body>
 </html>

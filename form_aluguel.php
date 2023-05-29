@@ -3,15 +3,45 @@ if(isset($_POST['submit']))
 {
     include_once('config.php');
 
+        $entrada = new DateTime($_POST['data_aluguel']);
+        $saida = new DateTime($_POST['previsao']);
+        $intervalo = $entrada->diff($saida);
+        $dias = $intervalo->format('%a');
+        $hoje = date("Y-m-d");
+
+        $livro = $_POST['livro'];
+        $sql = "SELECT * FROM livro WHERE nome = '$livro'";
+        $result = $conexao->query($sql);
+        $data = mysqli_fetch_assoc($result);
+        $estoque_BD = $data['estoque'];
+        $estoque_novo = $estoque_BD - 1;
+
+        if($dias > 30) {
+            echo "<script> alert('O limite de aluguel é de 30 dias') </script>";
+        } else if($entrada > $saida) {
+            echo "<script> alert('A data do aluguel não pode ser maior que a data da devolução') </script>";
+        } if($estoque_novo < 0) {
+            echo "<script> alert('Livro esgotado') </script>"; 
+        } else {
         $livro = $_POST['livro'];
         $usuario = $_POST['usuario'];
         $data_aluguel = $_POST['data_aluguel'];
         $previsao = $_POST['previsao'];
-
+        $devolucao = $_POST['devolucao'];
         $result = mysqli_query($conexao,"INSERT INTO aluguel(livro,usuario,data_aluguel,previsao) 
         VALUES('$livro','$usuario','$data_aluguel','$previsao')");
 
+        $sql = "SELECT * FROM livro WHERE nome = '$livro'";
+        $result = $conexao->query($sql);
+        $data = mysqli_fetch_assoc($result);
+        $nome = $data['nome'];
+        $estoque_BD = $data['estoque'];
+        $estoque_novo = $estoque_BD - 1;
+
+        $alterar = "UPDATE livro SET estoque = '$estoque_novo' WHERE nome = '$nome'";
+        $resultado = $conexao->query($alterar);
         header('Location: aluguel.php');
+        }
 }
 ?>
 <!DOCTYPE html>
@@ -107,15 +137,49 @@ if(isset($_POST['submit']))
             <fieldset>
                 <legend><b>Cadastrar Aluguel</b></legend>
                 <br>
-                <div class="inputBox">
-                    <input type="text" name="livro" id="livro" class="inputUser" required>
-                    <label for="livro" class="labelInput">Livro</label>
-                </div>      
+                <div class="input-box">
+                        <div class="select">
+                            <label for="Livro">Livro</label>
+                            <select class="select" name="livro">
+                                <option>Selecione</option>
+                                <?php
+                                include_once('config.php');
+                                $sql = "SELECT * FROM livro ORDER BY id";
+                                $res = mysqli_query($conexao, $sql);
+                                while ($cadastro = mysqli_fetch_row($res)) {
+                                    
+                                    $li = $cadastro[1];
+                                    
+                                    $livro = $cadastro[1];
+
+                                    echo "<option class='livro' value='$li'>$livro</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>      
                 <br><br>
-                <div class="inputBox">
-                    <input type="text" name="usuario" id="usuario" class="inputUser" required>
-                    <label for="usuario" class="labelInput">Usuario</label>
-                </div>      
+                <div class="input-box">
+                        <div class="select">
+                            <label for="Usuario">Usuário</label>
+                            <select class="select" name="usuario">
+                                <option>Selecione</option>
+                                <?php
+                                include_once('config.php');
+                                $sql = "SELECT * FROM usuarios ORDER BY id";
+                                $res = mysqli_query($conexao, $sql);
+                                while ($cadastro = mysqli_fetch_row($res)) {
+                                    
+                                    $us = $cadastro[1];
+                                    
+                                    $usuarios = $cadastro[1];
+
+                                    echo "<option class='usuario' value='$us'>$usuarios</option>";
+                                }
+                                ?>
+                            </select>
+                        </div>
+                    </div>      
                 <br><br>
                 <div class="inputBox">
                     <label for="data_aluguel"><b>Data de Aluguel:</b></label>
@@ -127,6 +191,8 @@ if(isset($_POST['submit']))
                     <input type="date" name="previsao" id="previsao" required>
                 </div>
                 <br><br>
+                <input  type="hidden" name="devolucao"  id="devolucao" value="">
+                <br>
                 <input type="submit" name="submit" id="submit">
             </fieldset>
         </form>

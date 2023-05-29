@@ -7,7 +7,7 @@ if(!empty($_GET['search']))
     {
         $data = $_GET['search'];
         $sql = "SELECT * FROM livro WHERE id LIKE '%$data%' or nome LIKE '%$data%' or autor LIKE '%$data%' or editora LIKE '%$data%' or
-        data_lanc LIKE '%$data%' ORDER BY id DESC";
+        data_lanc LIKE '%$data%' or estoque LIKE '%$data%' ORDER BY id DESC";
     }
     else
     {
@@ -72,12 +72,14 @@ $result = $conexao->query($sql);
                         <?php
                             while($user_data = mysqli_fetch_assoc($result))
                             {
+                                $data_lanc=date("d/m/Y",strtotime($user_data['data_lanc']));
+
                                 echo "<tr>";
                                 echo "<td>".$user_data['id']."</td>";
                                 echo "<td>".$user_data['nome']."</td>";
                                 echo "<td>".$user_data['autor']."</td>";
                                 echo "<td>".$user_data['editora']."</td>";
-                                echo "<td>".$user_data['data_lanc']."</td>";
+                                echo "<td>".$data_lanc."</td>";
                                 echo "<td>".$user_data['estoque']."</td>";
                                 echo "<td>                                
                                     <a class='btn btn-sm btn-primary' href='edit_livro.php?id=$user_data[id]'>

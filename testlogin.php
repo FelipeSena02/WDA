@@ -15,7 +15,7 @@ if(isset($_POST['submit']) && !empty($_POST['email']) && !empty($_POST['senha'])
     {
         unset($_SESSION['email']);
         unset($_SESSION['senha']);
-        header('Location: tela-de-login.php');
+        echo "<script>alert('Email ou Senha inválidos!'); window.location = './tela-de-login.php';</script>";
     }
     else
     {
