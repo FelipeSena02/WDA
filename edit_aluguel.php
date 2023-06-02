@@ -11,7 +11,7 @@ if(!empty($_GET['id']))
 
     $resulta = $conexao->query($sqlSelect);
 
-    $aluguel = mysqli_fetch_assoc($result);
+    $aluguel = mysqli_fetch_assoc($resulta);
     $livro = $aluguel['livro'];
 
     $date = new DateTime();
