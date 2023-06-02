@@ -1,10 +1,6 @@
 <?php
 include_once("config.php");
 
-$quantidade = 10;
-$pagina = ( isset($_GET['pagina']) ) ?(int)$_GET['pagina']:1;
-$inicio = ($quantidade * $pagina) - $quantidade;
-
 $sql = "SELECT * FROM usuarios ORDER BY id DESC";
 
 if(!empty($_GET['search']))

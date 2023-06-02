@@ -50,8 +50,8 @@
 
         var options = {
           chart: {
-            title: 'Estoque',
-            subtitle: 'Total de livros',
+            title: 'Livros',
+            subtitle: 'Estoque',
           }
         };
 
